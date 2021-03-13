@@ -1,11 +1,7 @@
 package com.example.marvel
 
-import java.security.MessageDigest
+import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 
-val String.md5: String
-    get() {
-        val bytes = MessageDigest.getInstance("MD5").digest(this.toByteArray())
-        return bytes.joinToString("") {
-            "%02x".format(it)
-        }
-    }
+inline fun <reified T : ViewBinding> Fragment.viewBinding() =
+    FragmentViewBindingDelegate(this, T::class.java)

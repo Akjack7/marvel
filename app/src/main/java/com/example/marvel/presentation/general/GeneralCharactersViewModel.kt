@@ -20,6 +20,14 @@ class GeneralCharactersViewModel(
 
     val data = MutableLiveData<List<Results>>()
 
+    val currentCharacter : MutableLiveData<Results> by lazy {
+        MutableLiveData<Results>()
+    }
+
+    fun getCurrentCharacter(): LiveData<Results> {
+        return currentCharacter
+    }
+
     fun getCharacters() {
         launch {
             withContext(dispatcherFactory.getIO()) {
@@ -27,7 +35,7 @@ class GeneralCharactersViewModel(
                     _loadingState.postValue(LoadingState.LOADING)
                     val results =
                         repository.getCharacters()
-                    data.value = results.data.results
+                    data.postValue(results.data.results)
                     _loadingState.postValue(LoadingState.LOADED)
                 } catch (e: Exception) {
                     _loadingState.postValue(LoadingState.error(e.message))

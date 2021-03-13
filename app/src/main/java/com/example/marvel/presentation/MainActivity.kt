@@ -12,6 +12,6 @@ class MainActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        replaceFragment(GeneralCharactersFragment())
+        replaceFragment(GeneralCharactersFragment(), false)
     }
 }
