@@ -3,6 +3,9 @@ package com.example.marvel.presentation.general
 import Results
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentGeneralCharactersBinding
@@ -34,19 +37,30 @@ class GeneralCharactersFragment : Fragment(R.layout.fragment_general_characters)
         viewModel.loadingState.observe(viewLifecycleOwner, {
             when (it.status) {
                 BaseViewModel.LoadingState.Status.RUNNING -> {
-                    //todo loading
+                    showLoading(true)
                 }
                 BaseViewModel.LoadingState.Status.SUCCESS -> {
                     viewModel.data.observe(viewLifecycleOwner, {
                         adapter.items = it.toMutableList()
                     })
                     binding.generalCharactersList.adapter = adapter
+                    showLoading(false)
                 }
                 BaseViewModel.LoadingState.Status.FAILED -> {
-                    //todo error
+                    showLoading(false)
+                    Toast.makeText(requireContext(),getString(R.string.error),Toast.LENGTH_LONG).show()
                 }
             }
         })
+    }
+
+    private fun showLoading(show: Boolean) {
+        if (show) {
+            binding.generalCharactersLoading.loadingContainer.visibility = VISIBLE
+        } else {
+            binding.generalCharactersLoading.loadingContainer.visibility = GONE
+        }
+
     }
 
     override fun onclick(character: Results) {

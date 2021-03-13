@@ -49,7 +49,7 @@ class GeneralCharactersAdapter(
                 .with(itemView.context)
                 .load(imagePath.replace("http", "https"))
                 .centerCrop()
-                .placeholder(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.ic_captain_america)
                 .into(binding.characterItemImage)
             binding.characterItemCard.setOnClickListener {
                 listener.onclick(result)
