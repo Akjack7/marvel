@@ -72,7 +72,7 @@ val netModule = module {
 
     val interceptor = Interceptor { chain ->
         val original = chain.request()
-        val originalHttpUrl = original.url()
+        val originalHttpUrl = original.url
 
         val url = originalHttpUrl.newBuilder()
             .addQueryParameter("ts", "1")
