@@ -3,7 +3,7 @@ package com.example.marvel.presentation.general
 import Results
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.marvel.domain.MarvelRepository
+import com.example.marvel.data.MarvelRepository
 import com.example.marvel.presentation.BaseViewModel
 import com.example.marvel.utils.DispatcherFactory
 import kotlinx.coroutines.launch

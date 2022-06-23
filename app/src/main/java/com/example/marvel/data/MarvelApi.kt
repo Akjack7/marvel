@@ -1,4 +1,4 @@
-package com.example.marvel.domain
+package com.example.marvel.data
 
 import MarvelBase
 import retrofit2.http.GET

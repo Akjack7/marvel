@@ -1,10 +1,10 @@
-package com.example.marvel.di
+package com.example.marvel.core.di
 
 import android.app.Application
 import com.example.marvel.utils.MARVEL_HASH
 import com.example.marvel.utils.MARVEL_PUBLIC_KEY
-import com.example.marvel.domain.MarvelApi
-import com.example.marvel.domain.MarvelRepository
+import com.example.marvel.data.MarvelApi
+import com.example.marvel.data.MarvelRepository
 import com.example.marvel.presentation.general.GeneralCharactersViewModel
 import com.example.marvel.utils.AppDispatcherFactory
 import com.example.marvel.utils.DispatcherFactory
@@ -28,14 +28,6 @@ val dispatcherFactoryModule = module {
     }
 }
 
-val viewModelModule = module {
-    viewModel {
-        GeneralCharactersViewModel(
-            get(),
-            get()
-        )
-    }
-}
 
 val repositoryModule = module {
     single {

@@ -1,7 +1,7 @@
-package com.example.marvel.di
+package com.example.marvel.core
 
 import android.app.Application
-import com.example.marvel.*
+import com.example.marvel.core.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
