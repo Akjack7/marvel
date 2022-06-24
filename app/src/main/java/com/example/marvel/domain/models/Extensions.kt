@@ -18,9 +18,9 @@ fun Results.toDomain(): Character {
 }
 
 fun Character.toDaoModel(): CharacterDaoModel {
-    return CharacterDaoModel(id,name,description,imageUrl)
+    return CharacterDaoModel(id, name, description, imageUrl)
 }
 
 fun CharacterDaoModel.toDomain(): Character {
-    return Character(id,name, description, imageUrl)
+    return Character(id, name, description, imageUrl)
 }

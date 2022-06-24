@@ -56,16 +56,16 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
     private fun setData(character: Character) {
         with(binding) {
             characterDetailName.text = character.name
-            character.description.let { description ->
-                characterDetailDescriptionText.text =
-                    description.ifEmpty { getString(R.string.no_description) }
-            }
+            characterDetailDescriptionText.text =
+                character.description.ifEmpty { getString(R.string.no_description) }
+
             Glide
                 .with(requireContext())
                 .load(character.imageUrl)
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(binding.characterDetailImage)
+
             binding.favoriteImage.apply {
                 setImageDrawable(setFavoriteIcon(character.isFavorite))
                 setOnClickListener {
@@ -75,10 +75,10 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
         }
     }
 
-    private fun setFavoriteIcon(isFavorite : Boolean): Drawable? {
-      return ContextCompat.getDrawable(
-          requireContext(),
-          if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_no_favorite
-      )
+    private fun setFavoriteIcon(isFavorite: Boolean): Drawable? {
+        return ContextCompat.getDrawable(
+            requireContext(),
+            if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_no_favorite
+        )
     }
 }

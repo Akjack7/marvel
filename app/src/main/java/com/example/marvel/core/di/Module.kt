@@ -1,10 +1,6 @@
 package com.example.marvel.core.di
 
 import android.app.Application
-import com.example.marvel.data.local.ILocalRepository
-import com.example.marvel.data.local.LocalRepository
-import com.example.marvel.data.local.database.CharacterDao
-import com.example.marvel.data.local.database.CharactersDatabase
 import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.utils.MARVEL_HASH
 import com.example.marvel.utils.MARVEL_PUBLIC_KEY
@@ -29,89 +25,4 @@ val dispatcherFactoryModule = module {
     single<DispatcherFactory> {
         AppDispatcherFactory()
     }
-}
-
-val repositoryModule = module {
-    single {
-        MarvelRepository(get())
-    }
-}
-
-val localRepositoryModule = module {
-    single {
-        LocalRepository(get())
-    }
-}
-
-
-val marvelApiModule = module {
-    fun provideUserApi(retrofit: Retrofit): MarvelApi {
-        return retrofit.create(MarvelApi::class.java)
-    }
-
-    single { provideUserApi(get()) }
-}
-
-val dataSourceModule = module {
-    single<IMarvelRepository> { MarvelRepository(get()) }
-}
-
-val localDataSourceModule = module {
-    single<ILocalRepository> { LocalRepository(get()) }
-}
-
-val characterDaoModule = module {
-
-    factory {
-        get<CharactersDatabase>().characterDao()
-    }
-}
-
-val netModule = module {
-    fun provideCache(application: Application): Cache {
-        val cacheSize = 10 * 1024 * 1024
-        return Cache(application.cacheDir, cacheSize.toLong())
-    }
-
-    fun provideHttpClient(cache: Cache): OkHttpClient {
-        val okHttpClientBuilder = OkHttpClient.Builder()
-            .cache(cache)
-
-        return okHttpClientBuilder.build()
-    }
-
-    fun provideGson(): Gson {
-        return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
-    }
-
-    val interceptor = Interceptor { chain ->
-        val original = chain.request()
-        val originalHttpUrl = original.url
-
-        val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("ts", "1")
-            .addQueryParameter("apikey", MARVEL_PUBLIC_KEY)
-            .addQueryParameter("hash", MARVEL_HASH)
-            .build()
-        val request = original.newBuilder().url(url)
-        chain.proceed(request.build())
-    }
-
-    val apiClient = OkHttpClient().newBuilder().addInterceptor(interceptor).build()
-
-
-    fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
-        return Retrofit.Builder().client(apiClient)
-            .baseUrl("https://gateway.marvel.com/")
-            .addConverterFactory(GsonConverterFactory.create(factory))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(OkHttpClient().newBuilder().addInterceptor(interceptor).build())
-            .build()
-    }
-
-    single { provideCache(androidApplication()) }
-    single { provideHttpClient(get()) }
-    single { provideGson() }
-    single { provideRetrofit(get(), get()) }
-
 }
