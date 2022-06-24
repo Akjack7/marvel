@@ -22,7 +22,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     }
 
     private fun loadData() {
-        viewModel.getCurrentCharacter().observe(viewLifecycleOwner, {
+        viewModel.getCurrentCharacter().observe(viewLifecycleOwner) {
             with(binding) {
                 characterDetailName.text = it.name
                 it.description.let {
@@ -38,6 +38,6 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(binding.characterDetailImage)
             }
-        })
+        }
     }
 }

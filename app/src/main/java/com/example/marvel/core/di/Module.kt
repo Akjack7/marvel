@@ -1,11 +1,11 @@
 package com.example.marvel.core.di
 
 import android.app.Application
+import com.example.marvel.data.IMarvelRepository
 import com.example.marvel.utils.MARVEL_HASH
 import com.example.marvel.utils.MARVEL_PUBLIC_KEY
-import com.example.marvel.data.MarvelApi
+import com.example.marvel.data.apis.MarvelApi
 import com.example.marvel.data.MarvelRepository
-import com.example.marvel.presentation.general.GeneralCharactersViewModel
 import com.example.marvel.utils.AppDispatcherFactory
 import com.example.marvel.utils.DispatcherFactory
 import com.google.gson.FieldNamingPolicy
@@ -16,7 +16,6 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
-import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,13 +27,11 @@ val dispatcherFactoryModule = module {
     }
 }
 
-
 val repositoryModule = module {
     single {
         MarvelRepository(get())
     }
 }
-
 
 
 val marvelApiModule = module {
@@ -43,6 +40,10 @@ val marvelApiModule = module {
     }
 
     single { provideUserApi(get()) }
+}
+
+val dataSourceModule = module {
+    single<IMarvelRepository> { MarvelRepository(get()) }
 }
 
 val netModule = module {

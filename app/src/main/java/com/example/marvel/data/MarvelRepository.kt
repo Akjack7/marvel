@@ -1,10 +1,13 @@
 package com.example.marvel.data
 
-import MarvelBase
+import Results
+import com.example.marvel.data.apis.MarvelApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-class MarvelRepository(private val marvelApi: MarvelApi) {
+class MarvelRepository(private val marvelApi: MarvelApi) : IMarvelRepository {
 
-    suspend fun getCharacters(): MarvelBase {
-        return marvelApi.getCharacters()
+    override fun getCharacters(): Flow<List<Results>> = flow {
+        emit(marvelApi.getCharacters().data.results)
     }
 }

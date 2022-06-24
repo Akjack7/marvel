@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentGeneralCharactersBinding
+import com.example.marvel.domain.models.Character
 import com.example.marvel.presentation.BaseViewModel
 import com.example.marvel.presentation.MainActivity
 import com.example.marvel.presentation.detail.CharacterDetailFragment
@@ -34,9 +35,9 @@ class GeneralCharactersFragment : Fragment(R.layout.fragment_general_characters)
 
     private fun addObserver() {
         viewModel.getCharacters()
-        viewModel.loadingState.observe(viewLifecycleOwner, {
-            when (it.status) {
-                BaseViewModel.LoadingState.Status.RUNNING -> {
+        viewModel.allCharactersState.observe(viewLifecycleOwner) {
+            when (it) {
+                /*BaseViewModel.LoadingState.Status.RUNNING -> {
                     showLoading(true)
                 }
                 BaseViewModel.LoadingState.Status.SUCCESS -> {
@@ -48,10 +49,27 @@ class GeneralCharactersFragment : Fragment(R.layout.fragment_general_characters)
                 }
                 BaseViewModel.LoadingState.Status.FAILED -> {
                     showLoading(false)
-                    Toast.makeText(requireContext(),getString(R.string.error),Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.error), Toast.LENGTH_LONG)
+                        .show()
+                }*/
+                CharactersState.Empty -> {
+                    showLoading(false)
+                    Toast.makeText(requireContext(), getString(R.string.empty), Toast.LENGTH_LONG)
+                        .show()
                 }
+                CharactersState.Error -> {
+                    showLoading(false)
+                    Toast.makeText(requireContext(), getString(R.string.error), Toast.LENGTH_LONG)
+                        .show()
+                }
+                is CharactersState.Loaded -> {
+                    adapter.items = it.data
+                    binding.generalCharactersList.adapter = adapter
+                    showLoading(false)
+                }
+                CharactersState.Loading -> showLoading(true)
             }
-        })
+        }
     }
 
     private fun showLoading(show: Boolean) {
@@ -63,9 +81,9 @@ class GeneralCharactersFragment : Fragment(R.layout.fragment_general_characters)
 
     }
 
-    override fun onclick(character: Results) {
+    override fun onclick(character: Character) {
         //instead call the service again,we store the clicked character in liveData
-        viewModel.currentCharacter.postValue(character)
+       // viewModel.currentCharacter.postValue(character)
         (activity as MainActivity).replaceFragment(CharacterDetailFragment(), true)
     }
 }

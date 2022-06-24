@@ -1,6 +1,5 @@
 package com.example.marvel.presentation.general.adapter
 
-import Results
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,16 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marvel.R
 import com.example.marvel.databinding.CharacterListItemBinding
+import com.example.marvel.domain.models.Character
 
 class GeneralCharactersAdapter(
     private val listener: Action,
 ) :
     RecyclerView.Adapter<GeneralCharactersAdapter.ViewHolder>() {
 
-    var items: MutableList<Results> = mutableListOf()
+    var items: List<Character> = listOf()
 
     interface Action {
-        fun onclick(character: Results)
+        fun onclick(character: Character)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,18 +41,16 @@ class GeneralCharactersAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = CharacterListItemBinding.bind(view)
-        fun bind(result: Results) {
-            binding.characterItemName.text = result.name
-            val imagePath =
-                result.thumbnail.path + "/landscape_xlarge." + result.thumbnail.extension
+        fun bind(character: Character) {
+            binding.characterItemName.text = character.name
             Glide
                 .with(itemView.context)
-                .load(imagePath.replace("http", "https"))
+                .load(character.imageUrl)
                 .centerCrop()
                 .placeholder(R.drawable.ic_captain_america)
                 .into(binding.characterItemImage)
             binding.characterItemCard.setOnClickListener {
-                listener.onclick(result)
+                listener.onclick(character)
             }
         }
     }

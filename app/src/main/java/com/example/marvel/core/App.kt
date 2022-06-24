@@ -18,7 +18,9 @@ class App : Application() {
                     viewModelModule,
                     repositoryModule,
                     marvelApiModule,
-                    netModule
+                    netModule,
+                    useCasesModule,
+                    dataSourceModule
                 )
             )
         }
