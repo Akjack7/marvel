@@ -17,7 +17,7 @@ class GeneralCharactersAdapter(
     var items: List<Character> = listOf()
 
     interface Action {
-        fun onclick(character: Character)
+        fun onclick(id:Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,7 +50,7 @@ class GeneralCharactersAdapter(
                 .placeholder(R.drawable.ic_captain_america)
                 .into(binding.characterItemImage)
             binding.characterItemCard.setOnClickListener {
-                listener.onclick(character)
+                listener.onclick(character.id)
             }
         }
     }

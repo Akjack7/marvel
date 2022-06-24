@@ -1,6 +1,7 @@
 package com.example.marvel.domain.models
 
 import Results
+import com.example.marvel.data.local.CharacterDaoModel
 
 
 const val XLARGE_IMAGE = "/landscape_xlarge."
@@ -14,4 +15,12 @@ fun Results.toDomain(): Character {
             HTTP, HTTPS
         )
     )
+}
+
+fun Character.toDaoModel(): CharacterDaoModel {
+    return CharacterDaoModel(id,name,description,imageUrl)
+}
+
+fun CharacterDaoModel.toDomain(): Character {
+    return Character(id,name, description, imageUrl)
 }

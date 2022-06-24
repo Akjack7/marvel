@@ -1,6 +1,6 @@
 package com.example.marvel.domain.usecases
 
-import com.example.marvel.data.IMarvelRepository
+import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.domain.models.Character
 import com.example.marvel.domain.models.toDomain
 import kotlinx.coroutines.flow.Flow

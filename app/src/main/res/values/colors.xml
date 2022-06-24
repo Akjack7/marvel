@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="marvel_red">#ec2424</color>
     <color name="marvel_red_light">#EF6565</color>
+    <color name="transparent">@android:color/transparent</color>
 
 </resources>

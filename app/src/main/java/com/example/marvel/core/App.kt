@@ -20,7 +20,11 @@ class App : Application() {
                     marvelApiModule,
                     netModule,
                     useCasesModule,
-                    dataSourceModule
+                    dataSourceModule,
+                    dataBaseModule,
+                    localRepositoryModule,
+                    localDataSourceModule,
+                    characterDaoModule
                 )
             )
         }

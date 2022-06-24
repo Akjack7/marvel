@@ -1,11 +1,15 @@
 package com.example.marvel.core.di
 
 import android.app.Application
-import com.example.marvel.data.IMarvelRepository
+import com.example.marvel.data.local.ILocalRepository
+import com.example.marvel.data.local.LocalRepository
+import com.example.marvel.data.local.database.CharacterDao
+import com.example.marvel.data.local.database.CharactersDatabase
+import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.utils.MARVEL_HASH
 import com.example.marvel.utils.MARVEL_PUBLIC_KEY
-import com.example.marvel.data.apis.MarvelApi
-import com.example.marvel.data.MarvelRepository
+import com.example.marvel.data.remote.apis.MarvelApi
+import com.example.marvel.data.remote.MarvelRepository
 import com.example.marvel.utils.AppDispatcherFactory
 import com.example.marvel.utils.DispatcherFactory
 import com.google.gson.FieldNamingPolicy
@@ -33,6 +37,12 @@ val repositoryModule = module {
     }
 }
 
+val localRepositoryModule = module {
+    single {
+        LocalRepository(get())
+    }
+}
+
 
 val marvelApiModule = module {
     fun provideUserApi(retrofit: Retrofit): MarvelApi {
@@ -44,6 +54,17 @@ val marvelApiModule = module {
 
 val dataSourceModule = module {
     single<IMarvelRepository> { MarvelRepository(get()) }
+}
+
+val localDataSourceModule = module {
+    single<ILocalRepository> { LocalRepository(get()) }
+}
+
+val characterDaoModule = module {
+
+    factory {
+        get<CharactersDatabase>().characterDao()
+    }
 }
 
 val netModule = module {
@@ -94,5 +115,3 @@ val netModule = module {
     single { provideRetrofit(get(), get()) }
 
 }
-
-

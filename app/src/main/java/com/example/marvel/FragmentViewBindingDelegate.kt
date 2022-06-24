@@ -1,41 +1,55 @@
 package com.example.marvel
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 class FragmentViewBindingDelegate<T : ViewBinding>(
-    private val fragment: Fragment,
-    klazz: Class<T>
+    val fragment: Fragment,
+    val viewBindingFactory: (View) -> T
 ) : ReadOnlyProperty<Fragment, T> {
-
     private var binding: T? = null
-    private val bindMethod = klazz.getMethod("bind", View::class.java)
 
     init {
-        fragment.lifecycle.addObserver(object : LifecycleObserver {
-            @OnLifecycleEvent(Lifecycle.Event.ON_CREATE) fun onCreate() {
-                fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
-                    viewLifecycleOwner.lifecycle.addObserver(ViewLifecycleBinding())
+        fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            val viewLifecycleOwnerLiveDataObserver =
+                Observer<LifecycleOwner?> {
+                    val viewLifecycleOwner = it ?: return@Observer
+
+                    viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+                        override fun onDestroy(owner: LifecycleOwner) {
+                            binding = null
+                        }
+                    })
                 }
+
+            override fun onCreate(owner: LifecycleOwner) {
+                fragment.viewLifecycleOwnerLiveData.observeForever(viewLifecycleOwnerLiveDataObserver)
+            }
+
+            override fun onDestroy(owner: LifecycleOwner) {
+                fragment.viewLifecycleOwnerLiveData.removeObserver(viewLifecycleOwnerLiveDataObserver)
             }
         })
     }
 
-    override fun getValue(thisRef: Fragment, property: KProperty<*>): T =
-        binding ?: (bindMethod.invoke(null, thisRef.requireView()) as T).also { binding = it }
-
-    inner class ViewLifecycleBinding : LifecycleObserver {
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY) internal fun onDestroy() {
-            Log.v(this.javaClass.simpleName, "clear binding of ${fragment.javaClass.simpleName}")
-            binding = null
-            fragment.lifecycle.removeObserver(this)
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+        val binding = binding
+        if (binding != null) {
+            return binding
         }
+
+        val lifecycle = fragment.viewLifecycleOwner.lifecycle
+        if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
+            throw IllegalStateException("Should not attempt to get bindings when Fragment views are destroyed.")
+        }
+
+        return viewBindingFactory(thisRef.requireView()).also { this.binding = it }
     }
 }
+
+fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
+    FragmentViewBindingDelegate(this, viewBindingFactory)

@@ -17,18 +17,31 @@
 
     <TextView
         android:id="@+id/characterDetailName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/_16ssp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/characterDetailImage"
         tools:text="Nombre" />
+
+    <ImageButton
+        android:id="@+id/favoriteImage"
+        app:layout_constraintTop_toTopOf="@+id/characterDetailName"
+        app:layout_constraintBottom_toBottomOf="@+id/characterDetailName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/transparent"
+        tools:src="@drawable/ic_no_favorite"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/characterDetailDescriptionText"
