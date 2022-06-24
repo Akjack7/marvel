@@ -4,6 +4,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 32
 
@@ -13,8 +17,9 @@ android {
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "MARVEL_PUBLIC_KEY", apikeyProperties['MARVEL_PUBLIC_KEY'])
+        buildConfigField("String", "MARVEL_HASH", apikeyProperties['MARVEL_HASH'])
     }
 
     buildTypes {

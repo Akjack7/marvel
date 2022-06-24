@@ -1,11 +1,10 @@
 package com.example.marvel.core.di
 
 import android.app.Application
+import com.example.marvel.BuildConfig
 import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.data.remote.MarvelRepository
 import com.example.marvel.data.remote.apis.MarvelApi
-import com.example.marvel.utils.MARVEL_HASH
-import com.example.marvel.utils.MARVEL_PUBLIC_KEY
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -66,8 +65,8 @@ val netModule = module {
 
         val url = originalHttpUrl.newBuilder()
             .addQueryParameter(TS, TS_VALUE)
-            .addQueryParameter(API_KEY, MARVEL_PUBLIC_KEY)
-            .addQueryParameter(HASH, MARVEL_HASH)
+            .addQueryParameter(API_KEY, BuildConfig.MARVEL_PUBLIC_KEY)
+            .addQueryParameter(HASH, BuildConfig.MARVEL_HASH)
             .build()
         val request = original.newBuilder().url(url)
         chain.proceed(request.build())
@@ -76,7 +75,7 @@ val netModule = module {
     val apiClient = OkHttpClient().newBuilder().addInterceptor(interceptor).build()
 
 
-    fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(factory: Gson): Retrofit {
         return Retrofit.Builder().client(apiClient)
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(factory))
@@ -88,6 +87,6 @@ val netModule = module {
     single { provideCache(androidApplication()) }
     single { provideHttpClient(get()) }
     single { provideGson() }
-    single { provideRetrofit(get(), get()) }
+    single { provideRetrofit(get()) }
 
 }
