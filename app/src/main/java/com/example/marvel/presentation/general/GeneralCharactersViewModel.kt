@@ -1,6 +1,5 @@
 package com.example.marvel.presentation.general
 
-import Results
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.marvel.domain.models.Character
@@ -19,14 +18,6 @@ class GeneralCharactersViewModel(
     private val _allCharactersState = MutableLiveData<CharactersState>()
     val allCharactersState: LiveData<CharactersState>
         get() = _allCharactersState
-
-    val currentCharacter: MutableLiveData<Results> by lazy {
-        MutableLiveData<Results>()
-    }
-
-    fun getCurrentCharacter(): LiveData<Results> {
-        return currentCharacter
-    }
 
 
     fun getCharacters() {
