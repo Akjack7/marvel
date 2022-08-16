@@ -1,7 +1,7 @@
 package com.example.marvel.domain.models
 
 import Results
-import com.example.marvel.data.local.CharacterDaoModel
+import com.example.marvel.data.local.dto.CharacterDaoModel
 
 
 const val XLARGE_IMAGE = "/landscape_xlarge."

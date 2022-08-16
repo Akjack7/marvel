@@ -1,4 +1,4 @@
-package com.example.marvel.presentation
+package com.example.marvel.presentation.base
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

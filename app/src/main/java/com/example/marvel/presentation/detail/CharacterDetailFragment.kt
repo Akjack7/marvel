@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentCharacterDetailBinding
 import com.example.marvel.domain.models.Character
-import com.example.marvel.presentation.BaseFragment
+import com.example.marvel.presentation.base.BaseFragment
 import com.example.marvel.viewBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 

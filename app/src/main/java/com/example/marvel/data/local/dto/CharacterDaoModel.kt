@@ -1,4 +1,4 @@
-package com.example.marvel.data.local
+package com.example.marvel.data.local.dto
 
 import androidx.annotation.Keep
 import androidx.room.ColumnInfo

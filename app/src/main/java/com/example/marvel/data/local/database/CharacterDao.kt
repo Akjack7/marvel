@@ -1,8 +1,7 @@
 package com.example.marvel.data.local.database
 
 import androidx.room.*
-import com.example.marvel.data.local.CharacterDaoModel
-import com.example.marvel.domain.models.Character
+import com.example.marvel.data.local.dto.CharacterDaoModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao

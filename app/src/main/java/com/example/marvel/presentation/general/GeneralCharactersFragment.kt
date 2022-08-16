@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentGeneralCharactersBinding
-import com.example.marvel.presentation.BaseFragment
+import com.example.marvel.presentation.base.BaseFragment
 import com.example.marvel.presentation.detail.CharacterDetailFragment
 import com.example.marvel.presentation.general.adapter.GeneralCharactersAdapter
 import com.example.marvel.viewBinding

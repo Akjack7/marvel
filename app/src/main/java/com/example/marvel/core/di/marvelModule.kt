@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.marvel.BuildConfig
 import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.data.remote.MarvelRepository
-import com.example.marvel.data.remote.apis.MarvelApi
+import com.example.marvel.data.remote.service.MarvelApi
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

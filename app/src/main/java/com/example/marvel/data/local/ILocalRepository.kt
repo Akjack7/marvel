@@ -1,5 +1,6 @@
 package com.example.marvel.data.local
 
+import com.example.marvel.data.local.dto.CharacterDaoModel
 import kotlinx.coroutines.flow.Flow
 
 interface ILocalRepository {

@@ -1,7 +1,7 @@
 package com.example.marvel.data.local
 
 import com.example.marvel.data.local.database.CharacterDao
-import com.example.marvel.domain.models.Character
+import com.example.marvel.data.local.dto.CharacterDaoModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow

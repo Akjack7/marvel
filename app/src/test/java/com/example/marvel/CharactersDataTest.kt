@@ -7,13 +7,11 @@ import Results
 import Series
 import Stories
 import Thumbnail
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.testing.TestLifecycleOwner
 import com.example.marvel.data.local.LocalRepository
-import com.example.marvel.data.local.database.CharacterDao
 import com.example.marvel.data.remote.MarvelRepository
-import com.example.marvel.data.remote.apis.MarvelApi
+import com.example.marvel.data.remote.service.MarvelApi
 import com.example.marvel.domain.usecases.ChangeFavoriteCharacterUseCase
 import com.example.marvel.domain.usecases.GetCharactersUseCase
 import com.example.marvel.domain.usecases.GetDetailCharacterUseCase
@@ -21,8 +19,6 @@ import com.example.marvel.presentation.detail.CharacterDetailViewModel
 import com.example.marvel.presentation.detail.CharacterState
 import com.example.marvel.presentation.general.CharactersState
 import com.example.marvel.presentation.general.GeneralCharactersViewModel
-import com.example.marvel.utils.AppDispatcherFactory
-import com.example.marvel.utils.DispatcherFactory
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -53,7 +49,7 @@ class CharactersDataTest : KoinTest {
     lateinit var item: Results
 
 
-    val dispatcher: DispatcherFactory = AppDispatcherFactory()
+    //val dispatcher: DispatcherFactory = AppDispatcherFactory()
 
 
     lateinit var viewModel: GeneralCharactersViewModel
@@ -89,8 +85,8 @@ class CharactersDataTest : KoinTest {
         val getDetailCharactersUseCase = GetDetailCharacterUseCase(marvelRepository,localRepository)
         val changeFavoriteCharacterUseCase: ChangeFavoriteCharacterUseCase = mockk(relaxed = true)
 
-        viewModel = GeneralCharactersViewModel(dispatcher, getCharactersUseCase)
-        detailViewModel = CharacterDetailViewModel(dispatcher,getDetailCharactersUseCase,changeFavoriteCharacterUseCase)
+       // viewModel = GeneralCharactersViewModel(dispatcher, getCharactersUseCase)
+        //detailViewModel = CharacterDetailViewModel(dispatcher,getDetailCharactersUseCase,changeFavoriteCharacterUseCase)
     }
 
     @After
@@ -114,7 +110,7 @@ class CharactersDataTest : KoinTest {
 
 
     @Test
-    fun `check if the item have data for detail`() {
+    fun `check if item has data for detail`() {
         runBlocking {
             detailViewModel.getCharacter(1)
             detailViewModel.characterState.observe(TestLifecycleOwner()){

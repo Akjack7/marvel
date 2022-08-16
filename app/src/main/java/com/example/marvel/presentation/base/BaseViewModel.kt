@@ -1,4 +1,4 @@
-package com.example.marvel.presentation
+package com.example.marvel.presentation.base
 
 import androidx.lifecycle.ViewModel
 import com.example.marvel.utils.DispatcherFactory

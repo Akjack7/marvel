@@ -3,6 +3,7 @@ package com.example.marvel.presentation
 import android.os.Bundle
 import android.view.View
 import com.example.marvel.databinding.ActivityMainBinding
+import com.example.marvel.presentation.base.BaseActivity
 import com.example.marvel.presentation.general.GeneralCharactersFragment
 
 class MainActivity : BaseActivity() {

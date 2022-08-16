@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.marvel.domain.models.Character
 import com.example.marvel.domain.usecases.ChangeFavoriteCharacterBaseUseCase
 import com.example.marvel.domain.usecases.GetDetailCharacterBaseUseCase
-import com.example.marvel.presentation.BaseViewModel
+import com.example.marvel.presentation.base.BaseViewModel
 import com.example.marvel.utils.DispatcherFactory
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -30,7 +30,8 @@ class CharacterDetailViewModel(
                 getCharactersDetailUseCase(id).onStart {
                     _characterState.postValue(CharacterState.Loading)
                 }
-                    .catch { _characterState.postValue(CharacterState.Error) }.collect {
+                    .catch {
+                        _characterState.postValue(CharacterState.Error) }.collect {
                         _characterState.postValue(CharacterState.Loaded(it))
                     }
             }

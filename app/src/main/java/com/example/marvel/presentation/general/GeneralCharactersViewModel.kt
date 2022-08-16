@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.marvel.domain.models.Character
 import com.example.marvel.domain.usecases.GetCharactersBaseUseCase
-import com.example.marvel.presentation.BaseViewModel
+import com.example.marvel.presentation.base.BaseViewModel
 import com.example.marvel.utils.DispatcherFactory
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

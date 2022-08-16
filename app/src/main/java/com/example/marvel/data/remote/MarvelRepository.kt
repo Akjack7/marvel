@@ -1,7 +1,7 @@
 package com.example.marvel.data.remote
 
 import Results
-import com.example.marvel.data.remote.apis.MarvelApi
+import com.example.marvel.data.remote.service.MarvelApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,5 +1,6 @@
 package com.example.marvel.utils
 
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
