@@ -2,7 +2,7 @@
 Basic App to show marvel characters, created with MVVM Architecture
 
 
-![alt text](https://androidwave.com/wp-content/uploads/2019/05/mvvm-architecture-app-in-android.png)
+![alt text](https://uploads.toptal.io/blog/image/127608/toptal-blog-image-1543413671794-80993a19fea97477524763c908b50a7a.png)
 
 
 #### For dependency Injection
@@ -17,17 +17,19 @@ Basic App to show marvel characters, created with MVVM Architecture
 
 - Glide
 
-#### For get data 
+#### For get network data 
 
 - Retrofit
-- 
+
 #### Database
 
 - Room
 
-#### For get data
+#### layers info
 
 - Datasource layer and UseCases are optional, but in this example are included
+- Flow & LiveData
+
 
 ### Is Pending
 
