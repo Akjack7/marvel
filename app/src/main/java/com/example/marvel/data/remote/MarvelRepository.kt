@@ -9,13 +9,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class MarvelRepository(private val dataSource: MarvelDataSource,private val dispatcherFactory: DispatcherFactory) : IMarvelRepository {
+class MarvelRepository(
+    private val dataSource: MarvelDataSource,
+    private val dispatcherFactory: DispatcherFactory
+) : IMarvelRepository {
 
-    override fun getCharacters(): Flow <Resource<List<Results>>> = flow {
+    override fun getCharacters(): Flow<Resource<List<Results>>> = flow {
         emit(dataSource.requestCharacters())
     }.flowOn(dispatcherFactory.getIO())
 
-    override fun getCharacterById(id: Int): Flow <Resource<Results>> = flow {
+    override fun getCharacterById(id: Int): Flow<Resource<Results>> = flow {
         emit(dataSource.requestCharacter(id))
     }.flowOn(dispatcherFactory.getIO())
 }
