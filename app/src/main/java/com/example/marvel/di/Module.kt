@@ -1,4 +1,4 @@
-package com.example.marvel.core.di
+package com.example.marvel.di
 
 import com.example.marvel.utils.AppDispatcherFactory
 import com.example.marvel.utils.DispatcherFactory
@@ -9,3 +9,4 @@ val dispatcherFactoryModule = module {
         AppDispatcherFactory()
     }
 }
+

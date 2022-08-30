@@ -1,14 +1,19 @@
-package com.example.marvel.core.di
+package com.example.marvel.di
 
 import android.app.Application
+import android.content.Context
 import com.example.marvel.BuildConfig
 import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.data.remote.MarvelRepository
 import com.example.marvel.data.remote.service.MarvelApi
+import com.example.marvel.data.remote.service.MarvelDataSource
+import com.example.marvel.utils.Network
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.task.data.error.mapper.ErrorMapper
+import com.task.usecase.errors.ErrorManager
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,9 +29,17 @@ const val API_KEY = "apikey"
 const val TS = "ts"
 const val TS_VALUE = "1"
 
+val dataSourceModule = module {
+    fun provideNetwork(context: Context) : Network {
+        return Network(context)
+    }
+    single { provideNetwork(get()) }
+    single { MarvelDataSource(get(),get()) }
+}
+
 val repositoryModule = module {
     single {
-        MarvelRepository(get())
+        MarvelRepository(get(),get())
     }
 }
 
@@ -38,9 +51,10 @@ val marvelApiModule = module {
     single { provideUserApi(get()) }
 }
 
-val dataSourceModule = module {
-    single<IMarvelRepository> { MarvelRepository(get()) }
+val iMarvelModule = module {
+    single<IMarvelRepository> { MarvelRepository(get(),get()) }
 }
+
 
 val netModule = module {
     fun provideCache(application: Application): Cache {
@@ -88,5 +102,9 @@ val netModule = module {
     single { provideHttpClient(get()) }
     single { provideGson() }
     single { provideRetrofit(get()) }
+}
 
+val errorModule = module {
+    single { ErrorMapper(get()) }
+    single { ErrorManager(get()) }
 }

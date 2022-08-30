@@ -1,8 +1,8 @@
-package com.example.marvel.core.di
+package com.example.marvel.di
 
-import com.example.marvel.core.di.usecases.UseCasesNamedConstants.CHANGE_FAVORITE
-import com.example.marvel.core.di.usecases.UseCasesNamedConstants.GET_CHARACTER
-import com.example.marvel.core.di.usecases.UseCasesNamedConstants.GET_CHARACTERS
+import com.example.marvel.di.usecases.UseCasesNamedConstants.CHANGE_FAVORITE
+import com.example.marvel.di.usecases.UseCasesNamedConstants.GET_CHARACTER
+import com.example.marvel.di.usecases.UseCasesNamedConstants.GET_CHARACTERS
 import com.example.marvel.data.local.ILocalRepository
 import com.example.marvel.data.remote.IMarvelRepository
 import com.example.marvel.domain.usecases.*

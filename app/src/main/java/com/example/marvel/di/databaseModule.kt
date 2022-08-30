@@ -1,4 +1,4 @@
-package com.example.marvel.core.di
+package com.example.marvel.di
 
 import androidx.room.Room
 import com.example.marvel.data.local.ILocalRepository

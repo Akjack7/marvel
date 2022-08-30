@@ -1,7 +1,7 @@
-package com.example.marvel.core
+package com.example.marvel
 
 import android.app.Application
-import com.example.marvel.core.di.*
+import com.example.marvel.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -24,7 +24,9 @@ class App : Application() {
                     dataBaseModule,
                     localRepositoryModule,
                     localDataSourceModule,
-                    characterDaoModule
+                    characterDaoModule,
+                    iMarvelModule,
+                    errorModule
                 )
             )
         }

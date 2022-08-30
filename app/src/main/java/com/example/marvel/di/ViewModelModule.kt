@@ -1,8 +1,8 @@
-package com.example.marvel.core.di
+package com.example.marvel.di
 
-import com.example.marvel.core.di.usecases.UseCasesNamedConstants.CHANGE_FAVORITE
-import com.example.marvel.core.di.usecases.UseCasesNamedConstants.GET_CHARACTER
-import com.example.marvel.core.di.usecases.UseCasesNamedConstants.GET_CHARACTERS
+import com.example.marvel.di.usecases.UseCasesNamedConstants.CHANGE_FAVORITE
+import com.example.marvel.di.usecases.UseCasesNamedConstants.GET_CHARACTER
+import com.example.marvel.di.usecases.UseCasesNamedConstants.GET_CHARACTERS
 import com.example.marvel.presentation.detail.CharacterDetailViewModel
 import com.example.marvel.presentation.general.GeneralCharactersViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -15,7 +15,8 @@ val viewModelModule = module {
             get(),
             getCharactersUseCase = get(
                 named(GET_CHARACTERS)
-            )
+            ),
+            get()
         )
     }
 
@@ -25,7 +26,8 @@ val viewModelModule = module {
             getCharactersDetailUseCase = get(
                 named(GET_CHARACTER)
             ),
-            changeFavoriteCharacterUseCase = get(named(CHANGE_FAVORITE))
+            changeFavoriteCharacterUseCase = get(named(CHANGE_FAVORITE)),
+            get()
         )
     }
 }

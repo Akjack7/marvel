@@ -5,12 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
 import com.example.marvel.R
+import com.example.marvel.data.Resource
 import com.example.marvel.databinding.FragmentCharacterDetailBinding
 import com.example.marvel.domain.models.Character
 import com.example.marvel.presentation.base.BaseFragment
+import com.example.marvel.utils.SingleEvent
+import com.example.marvel.utils.showToast
 import com.example.marvel.viewBinding
+import com.google.android.material.snackbar.Snackbar
+import com.task.data.error.DEFAULT_ERROR
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -39,18 +45,26 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
 
     private fun loadData(id: Int) {
         viewModel.getCharacter(id)
+        observeToast(viewModel.showToast)
         viewModel.characterState.observe(viewLifecycleOwner) {
             when (it) {
-                CharacterState.Error -> Toast.makeText(
-                    requireContext(),
-                    getString(R.string.error),
-                    Toast.LENGTH_LONG
-                )
-                    .show().also { showMainLoading(false) }
-                CharacterState.Loading -> showMainLoading(true)
-                is CharacterState.Loaded -> setData(it.data).also { showMainLoading(false) }
+                is Resource.DataError -> viewModel.showToastMessage(it.errorCode ?: DEFAULT_ERROR)
+                    .also { showMainLoading(false) }
+                is Resource.Loading -> showMainLoading(true)
+                is Resource.Success -> it.data?.let { character ->
+                    setData(character).also {
+                        showMainLoading(
+                            false
+                        )
+                    }
+                }
             }
         }
+
+    }
+
+    private fun observeToast(event: LiveData<SingleEvent<Any>>) {
+        binding.root.showToast(this, event, Snackbar.LENGTH_LONG)
     }
 
     private fun setData(character: Character) {
