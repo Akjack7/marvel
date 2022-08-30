@@ -1,5 +1,5 @@
 # Marvel
-Basic App to show marvel characters create with MVVM Architecture
+Basic App to show marvel characters, created with MVVM Architecture
 
 
 ![alt text](https://androidwave.com/wp-content/uploads/2019/05/mvvm-architecture-app-in-android.png)
@@ -7,29 +7,31 @@ Basic App to show marvel characters create with MVVM Architecture
 
 #### For dependency Injection
 
-- I have used Koin
-
-#### For the Views
-
-- Kotlin synthetics is recenty deprecated, I used viewBinding
+- Koin
 
 #### For the Tests
 
-- I have used Mockk
+- Mockk
 
 #### For the images
 
-- I have used Glide
+- Glide
 
 #### For get data 
 
 - Retrofit
+- 
+#### Database
 
+- Room
+
+#### For get data
+
+- Datasource layer and UseCases are optional, but in this example are included
 
 ### Is Pending
 
 - Pagination
 - Show more info detail character
 - Search by name or others features
-- Change the adapter of the recyclerview to multirecycler for diferent items, for example to add admob items in the future
 
