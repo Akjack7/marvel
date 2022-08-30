@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/marvel_red"
-    tools:context=".presentation.detail.CharacterDetailFragment">
+    tools:context=".ui.detail.CharacterDetailFragment">
 
     <ImageView
         android:id="@+id/characterDetailImage"

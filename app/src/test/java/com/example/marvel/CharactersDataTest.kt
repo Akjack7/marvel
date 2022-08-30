@@ -15,10 +15,10 @@ import com.example.marvel.data.remote.service.MarvelApi
 import com.example.marvel.domain.usecases.ChangeFavoriteCharacterUseCase
 import com.example.marvel.domain.usecases.GetCharactersUseCase
 import com.example.marvel.domain.usecases.GetDetailCharacterUseCase
-import com.example.marvel.presentation.detail.CharacterDetailViewModel
-import com.example.marvel.presentation.detail.CharacterState
-import com.example.marvel.presentation.general.CharactersState
-import com.example.marvel.presentation.general.GeneralCharactersViewModel
+import com.example.marvel.ui.detail.CharacterDetailViewModel
+import com.example.marvel.ui.detail.CharacterState
+import com.example.marvel.ui.general.CharactersState
+import com.example.marvel.ui.general.GeneralCharactersViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

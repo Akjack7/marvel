@@ -18,20 +18,12 @@ val dataBaseModule = module {
         )
             .build()
     }
-}
 
-val localDataSourceModule = module {
     single<ILocalRepository> { LocalRepository(get()) }
-}
-
-val characterDaoModule = module {
-
     factory {
         get<CharactersDatabase>().characterDao()
     }
-}
 
-val localRepositoryModule = module {
     single {
         LocalRepository(get())
     }

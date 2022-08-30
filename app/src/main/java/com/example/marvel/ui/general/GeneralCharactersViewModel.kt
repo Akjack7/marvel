@@ -1,11 +1,11 @@
-package com.example.marvel.presentation.general
+package com.example.marvel.ui.general
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.marvel.data.Resource
 import com.example.marvel.domain.models.Character
 import com.example.marvel.domain.usecases.GetCharactersBaseUseCase
-import com.example.marvel.presentation.base.BaseViewModel
+import com.example.marvel.ui.base.BaseViewModel
 import com.example.marvel.utils.DispatcherFactory
 import com.example.marvel.utils.SingleEvent
 import com.task.data.error.DEFAULT_ERROR

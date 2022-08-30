@@ -1,4 +1,4 @@
-package com.example.marvel.presentation.general
+package com.example.marvel.ui.general
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData
 import com.example.marvel.R
 import com.example.marvel.data.Resource
 import com.example.marvel.databinding.FragmentGeneralCharactersBinding
-import com.example.marvel.presentation.base.BaseFragment
-import com.example.marvel.presentation.detail.CharacterDetailFragment
-import com.example.marvel.presentation.general.adapter.GeneralCharactersAdapter
+import com.example.marvel.ui.base.BaseFragment
+import com.example.marvel.ui.detail.CharacterDetailFragment
+import com.example.marvel.ui.general.adapter.GeneralCharactersAdapter
 import com.example.marvel.utils.SingleEvent
 import com.example.marvel.utils.showToast
 import com.example.marvel.viewBinding

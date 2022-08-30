@@ -14,19 +14,12 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
-                    dispatcherFactoryModule,
-                    viewModelModule,
-                    repositoryModule,
-                    marvelApiModule,
+                    appModule,
+                    dataModule,
                     netModule,
-                    useCasesModule,
-                    dataSourceModule,
                     dataBaseModule,
-                    localRepositoryModule,
-                    localDataSourceModule,
-                    characterDaoModule,
-                    iMarvelModule,
-                    errorModule
+                    useCasesModule,
+                    viewModelModule,
                 )
             )
         }

@@ -1,9 +1,8 @@
-package com.example.marvel.presentation.detail
+package com.example.marvel.ui.detail
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
@@ -11,7 +10,7 @@ import com.example.marvel.R
 import com.example.marvel.data.Resource
 import com.example.marvel.databinding.FragmentCharacterDetailBinding
 import com.example.marvel.domain.models.Character
-import com.example.marvel.presentation.base.BaseFragment
+import com.example.marvel.ui.base.BaseFragment
 import com.example.marvel.utils.SingleEvent
 import com.example.marvel.utils.showToast
 import com.example.marvel.viewBinding

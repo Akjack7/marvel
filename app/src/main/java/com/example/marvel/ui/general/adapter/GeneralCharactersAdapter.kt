@@ -1,4 +1,4 @@
-package com.example.marvel.presentation.general.adapter
+package com.example.marvel.ui.general.adapter
 
 import android.view.LayoutInflater
 import android.view.View

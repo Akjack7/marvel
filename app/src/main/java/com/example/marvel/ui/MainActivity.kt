@@ -1,10 +1,10 @@
-package com.example.marvel.presentation
+package com.example.marvel.ui
 
 import android.os.Bundle
 import android.view.View
 import com.example.marvel.databinding.ActivityMainBinding
-import com.example.marvel.presentation.base.BaseActivity
-import com.example.marvel.presentation.general.GeneralCharactersFragment
+import com.example.marvel.ui.base.BaseActivity
+import com.example.marvel.ui.general.GeneralCharactersFragment
 
 class MainActivity : BaseActivity() {
 

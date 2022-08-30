@@ -29,30 +29,23 @@ const val API_KEY = "apikey"
 const val TS = "ts"
 const val TS_VALUE = "1"
 
-val dataSourceModule = module {
+val dataModule = module {
+
+
+    fun provideUserApi(retrofit: Retrofit): MarvelApi {
+        return retrofit.create(MarvelApi::class.java)
+    }
+    single<IMarvelRepository> { MarvelRepository(get(),get()) }
+    single { provideUserApi(get()) }
+    single {
+        MarvelRepository(get(),get())
+    }
     fun provideNetwork(context: Context) : Network {
         return Network(context)
     }
     single { provideNetwork(get()) }
     single { MarvelDataSource(get(),get()) }
-}
 
-val repositoryModule = module {
-    single {
-        MarvelRepository(get(),get())
-    }
-}
-
-val marvelApiModule = module {
-    fun provideUserApi(retrofit: Retrofit): MarvelApi {
-        return retrofit.create(MarvelApi::class.java)
-    }
-
-    single { provideUserApi(get()) }
-}
-
-val iMarvelModule = module {
-    single<IMarvelRepository> { MarvelRepository(get(),get()) }
 }
 
 
@@ -102,9 +95,4 @@ val netModule = module {
     single { provideHttpClient(get()) }
     single { provideGson() }
     single { provideRetrofit(get()) }
-}
-
-val errorModule = module {
-    single { ErrorMapper(get()) }
-    single { ErrorManager(get()) }
 }

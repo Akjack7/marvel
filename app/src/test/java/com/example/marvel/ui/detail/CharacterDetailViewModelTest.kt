@@ -1,4 +1,4 @@
-package com.example.marvel.presentation.detail
+package com.example.marvel.ui.detail
 
 import Comics
 import Events

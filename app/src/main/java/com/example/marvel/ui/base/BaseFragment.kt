@@ -1,8 +1,8 @@
-package com.example.marvel.presentation.base
+package com.example.marvel.ui.base
 
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.example.marvel.presentation.MainActivity
+import com.example.marvel.ui.MainActivity
 
 open class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(contentLayoutId) {
 
