@@ -1,5 +1,10 @@
-package com.example.marvel.ui.detail
+package com.example.marvel.screens.detailSreen
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.marvel.data.Resource
@@ -13,48 +18,44 @@ import com.task.data.error.DEFAULT_ERROR
 import com.task.usecase.errors.ErrorManager
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CharacterDetailViewModel(
+class DetailViewModel(
     private val dispatcherFactory: DispatcherFactory,
     private val getCharactersDetailUseCase: GetDetailCharacterBaseUseCase,
     private val changeFavoriteCharacterUseCase: ChangeFavoriteCharacterBaseUseCase,
     private val errorManager: ErrorManager
 ) : BaseViewModel(dispatcherFactory) {
 
-    private val _characterState = MutableLiveData<Resource<Character>>()
-    val characterState: LiveData<Resource<Character>>
-        get() = _characterState
-
-    private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
-    val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
-
+    val data : MutableState<Resource<Character>> = mutableStateOf(Resource.Loading())
 
     fun getCharacter(id: Int) {
+        Log.d("CALLVIEWMODEL",id.toString())
         launch {
             withContext(dispatcherFactory.getIO()) {
                 getCharactersDetailUseCase(id).onStart {
-                    _characterState.postValue(Resource.Loading())
+                    data.value = Resource.Loading()
                 }
                     .catch {
-                        _characterState.postValue(Resource.DataError(DEFAULT_ERROR)) }.collect {
-                        _characterState.postValue(it)
+                        data.value = Resource.DataError(DEFAULT_ERROR) }.collect {
+                        data.value = it
                     }
             }
         }
     }
 
-    fun showToastMessage(errorCode: Int) {
-        val error = errorManager.getError(errorCode)
-        showToastPrivate.value = SingleEvent(error.description)
+    fun showToastMessage(context: Context) {
+        val error = errorManager.getError(data.value.errorCode?: DEFAULT_ERROR)
+        Toast.makeText(context, error.description, Toast.LENGTH_SHORT).show()
     }
 
     fun changeFavoriteCharacter(character: Character) {
         launch {
             withContext(dispatcherFactory.getIO()) {
-                changeFavoriteCharacterUseCase(character).collect()
+                changeFavoriteCharacterUseCase(character).distinctUntilChanged().collect()
             }
         }
     }

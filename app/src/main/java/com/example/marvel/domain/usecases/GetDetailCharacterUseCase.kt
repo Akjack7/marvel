@@ -1,5 +1,6 @@
 package com.example.marvel.domain.usecases
 
+import android.util.Log
 import com.example.marvel.data.Resource
 import com.example.marvel.data.local.ILocalRepository
 import com.example.marvel.data.remote.IMarvelRepository
@@ -19,6 +20,7 @@ class GetDetailCharacterUseCase(
 ) : GetDetailCharacterBaseUseCase {
 
     override suspend fun invoke(params: Int): Flow<Resource<Character>> = flow {
+        Log.d("CALLGetDetailCharacterUseCase ",params.toString())
         localRepository.getCharacterById(params).collect {
             if (it.data != null) {
                 val character = it.data.copy().toDomain().apply { isFavorite = true }

@@ -2,15 +2,14 @@ package com.example.marvel.ui.base
 
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.example.marvel.ui.MainActivity
 
 open class BaseFragment(@LayoutRes contentLayoutId: Int = 0) : Fragment(contentLayoutId) {
 
     fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
-        (activity as MainActivity).replaceFragment(fragment, addToBackStack)
+       // (activity as MainActivity).replaceFragment(fragment, addToBackStack)
     }
 
     fun showMainLoading(show: Boolean) {
-        (activity as MainActivity).showLoading(show)
+       // (activity as MainActivity).showLoading(show)
     }
 }

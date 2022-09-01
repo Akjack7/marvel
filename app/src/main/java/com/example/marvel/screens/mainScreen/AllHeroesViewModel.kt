@@ -1,5 +1,10 @@
-package com.example.marvel.ui.general
+package com.example.marvel.screens.mainScreen
 
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.marvel.data.Resource
@@ -14,41 +19,35 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class GeneralCharactersViewModel(
+class AllHeroesViewModel(
     private val dispatcherFactory: DispatcherFactory,
     private val getCharactersUseCase: GetCharactersBaseUseCase,
     private val errorManager: ErrorManager
 ) : BaseViewModel(dispatcherFactory) {
 
-    private val _allCharactersState = MutableLiveData<Resource<List<Character>>>()
-    val allCharactersState: LiveData<Resource<List<Character>>>
-        get() = _allCharactersState
-
-    private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
-    val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
+    val data : MutableState<Resource<List<Character>>> = mutableStateOf(Resource.Loading())
 
     init {
         getCharacters()
     }
 
 
-    fun getCharacters() {
+    private fun getCharacters() {
         launch {
             withContext(dispatcherFactory.getIO()) {
                 getCharactersUseCase(Unit).onStart {
-                    _allCharactersState.postValue(Resource.Loading())
+                    data.value = Resource.Loading()
                 }
-                    .catch { _allCharactersState.postValue(Resource.DataError(errorCode = DEFAULT_ERROR)) }
+                    .catch { data.value = Resource.DataError(errorCode = DEFAULT_ERROR) }
                     .collect {
-                        _allCharactersState.postValue(it)
-
+                        data.value = it
                     }
             }
         }
     }
 
-    fun showToastMessage(errorCode: Int) {
-        val error = errorManager.getError(errorCode)
-        showToastPrivate.value = SingleEvent(error.description)
+    fun showToastMessage(context:Context) {
+        val error = errorManager.getError(data.value.errorCode?: DEFAULT_ERROR)
+        Toast.makeText(context, error.description, Toast.LENGTH_SHORT).show()
     }
 }

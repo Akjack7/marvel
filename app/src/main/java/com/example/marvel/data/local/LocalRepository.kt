@@ -1,5 +1,6 @@
 package com.example.marvel.data.local
 
+import android.util.Log
 import com.example.marvel.data.Resource
 import com.example.marvel.data.local.database.CharacterDao
 import com.example.marvel.data.local.dto.CharacterDaoModel
@@ -14,7 +15,9 @@ class LocalRepository(private val characterDao: CharacterDao) : ILocalRepository
     }
 
     override fun getCharacterById(id: Int): Flow<Resource<CharacterDaoModel?>> = flow {
+        Log.d("GetById",id.toString())
         characterDao.loadCharacterById(id)?.collect {
+            Log.d("GetByIdCollect",id.toString())
             emit(Resource.Success(data = it))
         }
     }

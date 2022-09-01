@@ -9,4 +9,5 @@
     <string name="network_error">Network error, could get data,please try again!</string>
     <string name="no_results">No results found</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="description">description</string>
 </resources>

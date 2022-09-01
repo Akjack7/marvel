@@ -16,11 +16,10 @@ import com.example.marvel.utils.showToast
 import com.example.marvel.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.task.data.error.DEFAULT_ERROR
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail) {
-
+/*
     private val viewModel by viewModel<CharacterDetailViewModel>()
     private val binding by viewBinding(FragmentCharacterDetailBinding::bind)
 
@@ -93,5 +92,5 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
             requireContext(),
             if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_no_favorite
         )
-    }
+    }*/
 }
