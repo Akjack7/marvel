@@ -26,14 +26,6 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
 
     companion object {
         const val CHARACTER_ID = "character_id"
-
-        @JvmStatic
-        fun newInstance(id: Int) =
-            CharacterDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(CHARACTER_ID, id)
-                }
-            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

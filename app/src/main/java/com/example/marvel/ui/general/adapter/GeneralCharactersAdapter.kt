@@ -10,15 +10,12 @@ import com.example.marvel.databinding.CharacterListItemBinding
 import com.example.marvel.domain.models.Character
 
 class GeneralCharactersAdapter(
-    private val listener: Action,
+    private val onClick: ((Int, View) -> Unit)
 ) :
     RecyclerView.Adapter<GeneralCharactersAdapter.ViewHolder>() {
 
     var items: List<Character> = listOf()
 
-    interface Action {
-        fun onclick(id:Int)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -50,7 +47,7 @@ class GeneralCharactersAdapter(
                 .placeholder(R.drawable.ic_captain_america)
                 .into(binding.characterItemImage)
             binding.characterItemCard.setOnClickListener {
-                listener.onclick(character.id)
+                onClick(character.id, it)
             }
         }
     }

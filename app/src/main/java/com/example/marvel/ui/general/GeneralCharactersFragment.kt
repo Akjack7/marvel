@@ -2,7 +2,9 @@ package com.example.marvel.ui.general
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
+import androidx.navigation.Navigation
 import com.example.marvel.R
 import com.example.marvel.data.Resource
 import com.example.marvel.databinding.FragmentGeneralCharactersBinding
@@ -16,13 +18,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.task.data.error.DEFAULT_ERROR
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class GeneralCharactersFragment : BaseFragment(R.layout.fragment_general_characters),
-    GeneralCharactersAdapter.Action {
+class GeneralCharactersFragment : BaseFragment(R.layout.fragment_general_characters) {
 
     private val viewModel by viewModel<GeneralCharactersViewModel>()
     private val binding by viewBinding(FragmentGeneralCharactersBinding::bind)
     private val adapter: GeneralCharactersAdapter by lazy {
-        GeneralCharactersAdapter(this)
+        GeneralCharactersAdapter() { id, view ->
+            val bundle = bundleOf(CharacterDetailFragment.CHARACTER_ID to id)
+            Navigation.findNavController(view).navigate(R.id.characterDetailFragment, bundle)
+        }
     }
 
 
@@ -48,9 +52,5 @@ class GeneralCharactersFragment : BaseFragment(R.layout.fragment_general_charact
             }
         }
         observeToast(viewModel.showToast)
-    }
-
-    override fun onclick(id: Int) {
-        replaceFragment(CharacterDetailFragment.newInstance(id), true)
     }
 }
