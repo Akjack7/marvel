@@ -51,7 +51,6 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
                 }
             }
         }
-
     }
 
     private fun observeToast(event: LiveData<SingleEvent<Any>>) {
