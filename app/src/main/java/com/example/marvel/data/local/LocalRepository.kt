@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.flow
 class LocalRepository(private val characterDao: CharacterDao) : ILocalRepository {
 
     override fun insert(character: CharacterDaoModel) {
+        Log.d("Insert",character.id.toString())
+
         characterDao.insert(character)
     }
 
@@ -23,6 +25,8 @@ class LocalRepository(private val characterDao: CharacterDao) : ILocalRepository
     }
 
     override fun deleteCharacter(character: CharacterDaoModel) {
+        Log.d("Delete",character.id.toString())
+
         characterDao.delete(character)
     }
 }

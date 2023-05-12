@@ -22,14 +22,19 @@ class GetDetailCharacterUseCase(
     override suspend fun invoke(params: Int): Flow<Resource<Character>> = flow {
         Log.d("CALLGetDetailCharacterUseCase ",params.toString())
         localRepository.getCharacterById(params).collect {
+            Log.i("CALLGetDetailCharacterUseCase collect", params.toString())
             if (it.data != null) {
+                Log.i("Use Case guardado", params.toString())
                 val character = it.data.copy().toDomain().apply { isFavorite = true }
                 emit(Resource.Success(data = character))
             } else {
                 remoteRepository.getCharacterById(params).collect { result ->
                     if (result.data != null) {
+                        Log.i("Use Case NO guardado SUCCSESS", params.toString())
                         emit(Resource.Success(data = result.data.toDomain()))
                     } else {
+                        Log.i("Use Case NO guardado ERROR", params.toString())
+
                         emit(Resource.DataError(errorCode = result.errorCode ?: NO_RESULTS))
                     }
                 }

@@ -7,6 +7,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import com.example.marvel.data.Resource
 import com.example.marvel.domain.models.Character
 import com.example.marvel.domain.usecases.ChangeFavoriteCharacterBaseUseCase
@@ -30,17 +31,21 @@ class DetailViewModel(
     private val errorManager: ErrorManager
 ) : BaseViewModel(dispatcherFactory) {
 
-    val data : MutableState<Resource<Character>> = mutableStateOf(Resource.Loading())
+    var data: MutableState<Resource<Character>> = mutableStateOf(Resource.Loading())
 
     fun getCharacter(id: Int) {
-        Log.d("CALLVIEWMODEL",id.toString())
+        Log.d("CALLVIEWMODEL", id.toString())
         launch {
+            Log.d("CALLVIEWMODE launch", id.toString())
+
             withContext(dispatcherFactory.getIO()) {
                 getCharactersDetailUseCase(id).onStart {
                     data.value = Resource.Loading()
                 }
                     .catch {
-                        data.value = Resource.DataError(DEFAULT_ERROR) }.collect {
+                        data.value = Resource.DataError(DEFAULT_ERROR)
+                    }.collect {
+                        Log.i("GetCharacter viewModel", it.data?.id.toString())
                         data.value = it
                     }
             }
@@ -48,14 +53,15 @@ class DetailViewModel(
     }
 
     fun showToastMessage(context: Context) {
-        val error = errorManager.getError(data.value.errorCode?: DEFAULT_ERROR)
+        val error = errorManager.getError(data.value.errorCode ?: DEFAULT_ERROR)
         Toast.makeText(context, error.description, Toast.LENGTH_SHORT).show()
     }
 
     fun changeFavoriteCharacter(character: Character) {
+        Log.d("changeFavoriteCharacter", character.id.toString())
         launch {
             withContext(dispatcherFactory.getIO()) {
-                changeFavoriteCharacterUseCase(character).distinctUntilChanged().collect()
+                changeFavoriteCharacterUseCase(character).collect()
             }
         }
     }

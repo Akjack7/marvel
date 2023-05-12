@@ -30,7 +30,7 @@ import com.example.marvel.screens.mainScreen.AllHeroesViewModel
 fun HeroList(viewModel: AllHeroesViewModel,navController: NavController) {
     val heroList = viewModel.data.value.data
     LazyColumn() {
-        items(items = heroList ?: emptyList()) { item ->
+        items(items = heroList ?: emptyList(), key = { it.id }) { item ->
             HeroItem(character = item,navController)
         }
     }

@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.marvel.R
@@ -34,9 +35,14 @@ import com.example.marvel.domain.models.Character
 @Composable
 fun MarvelDetailScreen(detailViewModel: DetailViewModel, id: Int) {
     Log.d("DETAIL", id.toString())
-    LaunchedEffect(key1 = id) {
-        detailViewModel.getCharacter(id)
-    }
+
+
+
+
+     LaunchedEffect(key1 = id) {
+         Log.i("LaunchEffect", id.toString())
+         detailViewModel.getCharacter(id)
+     }
 
 
 
@@ -49,7 +55,8 @@ fun MarvelDetailScreen(detailViewModel: DetailViewModel, id: Int) {
             )
             is Resource.Loading -> CustomCircularProgressIndicator()
             is Resource.Success -> detailViewModel.data.value.data?.let {
-                detailInfo(
+                Log.i("SUCCESS DEtail", it.id.toString())
+                DetailInfo(
                     character = it,
                     detailViewModel
                 )
@@ -71,7 +78,7 @@ class SampleCharacterProvider : PreviewParameterProvider<Character> {
 }
 
 @Composable
-fun detailInfo(
+fun DetailInfo(
     @PreviewParameter(SampleCharacterProvider::class) character: Character,
     viewModel: DetailViewModel
 ) {
